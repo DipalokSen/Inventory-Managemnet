@@ -1,7 +1,9 @@
 import Sidebar from '@/Components/Sidebar'
 import { getCurrentUser } from '@/lib/auth'
 
+
 import { prisma } from '@/lib/prisma'
+import { TrendingUp } from 'lucide-react'
 import React from 'react'
 
 const page = async () => {
@@ -19,6 +21,14 @@ const page = async () => {
         where:{userId},
         orderBy:{createdAt:"desc"},
         take:5
+    })
+
+    const lowStock=await prisma.product.findMany({
+      where:{
+        userId,
+        lowStockAt:{not:null},
+        quantity:{lte:5}
+      }
     })
 
     const allProduct=await prisma.product.findMany({
@@ -52,6 +62,99 @@ const page = async () => {
                 Welcome back! Here is an overview of your inventory.
               </p>
             </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 mt-4">
+          <div className='bg-white rounded-xl p-4'>
+            <span className='font-semibold text-black text-lg'>Key Metrics</span>
+
+
+             
+              <div className='grid grid-cols-3 mt-4'>
+                
+               <div className='text-center'>
+                <div className='font-bold text-2xl'>{totalProducts}</div>
+                <div className='text-sm text-gray-800'>Total Products</div>
+                <div className='flex items-center justify-center gap-1 text-green-600'>
+                  <div className='text-xs'>+{totalProducts}</div>
+                   <TrendingUp className='w-4 h-4'/>
+                  
+
+                </div>
+
+               </div>
+
+
+
+
+               <div className='text-center'>
+                <div className='font-bold text-2xl'>${totalPrice}</div>
+                <div className='text-sm text-gray-800'>Total Value</div>
+                <div className='flex items-center justify-center gap-1 text-green-600'>
+                  <div className='text-xs'>+{totalPrice}</div>
+                   <TrendingUp className='w-4 h-4'/>
+                  
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+               </div>
+
+
+
+
+
+              <div className='text-center'>
+                <div className='font-bold text-2xl'>
+                  {lowStock.length>0?lowStock.length:"0"}
+                </div>
+                <div className='text-sm text-gray-800'>Low Stock</div>
+                <div className='flex items-center justify-center gap-1 text-green-600'>
+                  <div className='text-xs'>+ {lowStock.length>0?lowStock.length:"0"}</div>
+                   <TrendingUp className='w-4 h-4'/>
+                  
+
+                </div>
+
+               </div>
+
+
+
+
+
+
+
+
+              
+
+
+
+              </div>
+             
+
+
+
+
           </div>
         </div>
         </div>
