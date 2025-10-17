@@ -157,6 +157,58 @@ const page = async () => {
 
           </div>
         </div>
+
+
+
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4'>
+          <div className='bg-white rounded-xl p-4 mb-4 border-gray-400'>
+
+                      <div className='flex justify-between items-center'>
+                        <span className='font-bold'>Stock Levels</span>
+                      </div>
+
+                      {recentProduct.map((product)=>{
+
+
+    const stockLevel=product.quantity===0?0:product.quantity<(product.lowStockAt || 0)?1:2
+
+    const stockColor=[
+      "bg-red-500",
+      "bg-yellow-500",
+      "bg-green-500"
+    ]
+
+    const stockText=[
+      "text-red-500",
+      "text-yellow-500",
+      "text-green-500"
+    ]
+
+return(
+ 
+  
+ 
+ 
+ <div className='bg-gray-100 flex justify-between items-center mt-3 p-2 rounded-lg'>
+
+     <div className='flex items-center gap-2 justify-center'>
+          
+     <div className={`w-3 h-3 rounded-full ${stockColor[stockLevel]}`} />
+      <h2 className='font-bold text-sm'>{product.name}</h2>
+      </div>
+
+      <div className={`${stockText[stockLevel]} font-semibold text-sm`}>
+      {product.quantity} units
+      </div>
+  </div>
+)
+                      })}
+
+            </div>
+        </div>
+        
+        
+        
         </div>
       
     </div>
