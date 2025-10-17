@@ -1,6 +1,7 @@
 import Sidebar from '@/Components/Sidebar'
 import { getCurrentUser } from '@/lib/auth'
 
+import ProductChart from '@/Components/productChart'
 
 import { prisma } from '@/lib/prisma'
 import { TrendingUp } from 'lucide-react'
@@ -39,10 +40,52 @@ const page = async () => {
     const totalPrice=allProduct.reduce((sum,product)=>sum +Number(product.price) * Number(product.quantity),0)
 
 
+
+
+    const now=new Date()
+
+    const weeklyProductsData=[]
+
+
+
+
+    for(let i=11;i>=0;i--){
+   
+    const weekStart = new Date(now);
+    weekStart.setDate(weekStart.getDate() - i * 7);
+    weekStart.setHours(0, 0, 0, 0);
+
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekEnd.getDate() + 6);
+    weekEnd.setHours(23, 59, 59, 999);
+
+    const weekLabel = `${String(weekStart.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}/${String(weekStart.getDate() + 1).padStart(2, "0")}`;
+
+    const weekProducts = allProduct.filter((product) => {
+      const productDate = new Date(product.createdAt);
+      return productDate >= weekStart && productDate <= weekEnd;
+    });
+
+    weeklyProductsData.push({
+      week: weekLabel,
+      products: weekProducts.length,
+    });  
+
+    }
+ 
+
+
+
+
     console.log("total",totalProducts)
     console.log("recent",recentProduct)
     console.log("all",allProduct)
     console.log("total price",totalPrice)
+    
+    
     return (
     
     
@@ -156,6 +199,24 @@ const page = async () => {
 
 
           </div>
+
+
+          <div className='bg-white rounded-xl border-gray-300'>
+             
+             <div className='flex items-center p-4 font-semibold text-lg'>
+              New Products Per Week
+             </div>
+
+                    <ProductChart data={weeklyProductsData} />
+  
+             <div>
+
+             </div>
+
+          </div>
+
+
+
         </div>
 
 
