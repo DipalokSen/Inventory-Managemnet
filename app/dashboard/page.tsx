@@ -39,6 +39,8 @@ const page = async () => {
     0
   );
 
+ 
+
   const now = new Date();
 
   const weeklyProductsData = [];
@@ -77,11 +79,11 @@ const page = async () => {
   const inStockCount = allProduct.filter((p) => Number(p.quantity) > 5).length;
 
   const lowStackPerecentage =
-    totalProducts > 0 ? (lowStockCount / totalProducts) * 100 : 0;
+    totalProducts > 0 ? Math.round((lowStockCount / totalProducts) * 100) : 0;
   const outOfStockPercentage =
-    totalProducts > 0 ? (outOfStockCount / totalProducts) * 100 : 0;
+    totalProducts > 0 ? Math.round( (outOfStockCount / totalProducts) * 100) : 0;
   const inStockPercentage =
-    totalProducts > 0 ? (inStockCount / totalProducts) * 100 : 0;
+    totalProducts > 0 ? Math.round( (inStockCount / totalProducts) * 100) : 0;
 
   console.log("total", totalProducts);
   console.log("recent", recentProduct);
@@ -123,10 +125,10 @@ const page = async () => {
               </div>
 
               <div className="text-center">
-                <div className="font-bold text-2xl">${totalPrice}</div>
+                <div className="font-bold text-2xl">${totalPrice.toFixed(2)}</div>
                 <div className="text-sm text-gray-800">Total Value</div>
                 <div className="flex items-center justify-center gap-1 text-green-600">
-                  <div className="text-xs">+{totalPrice}</div>
+                  <div className="text-xs">+{totalPrice.toFixed(2)}</div>
                   <TrendingUp className="w-4 h-4" />
                 </div>
               </div>

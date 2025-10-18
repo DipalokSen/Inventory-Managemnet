@@ -34,7 +34,7 @@ const Sidebar = ({currentRoute="/dashboard"}:{currentRoute:string}) => {
       const isActive = currentRoute === item.href;
       return(
          
-        <Link href={item.href} className={`flex items-center text-white py-3 px-2 space-x-2 rounded-sm ${isActive?"bg-gray-500":"hover:bg-gray-700"}  w-[90%]`}>
+        <Link href={item.href} className={`flex items-center text-white py-3 px-2 space-x-2 rounded-sm ${isActive?"bg-gray-500":"hover:bg-gray-700"}  w-[90%]`} key={index}>
         
             
             <Icon className='w-6 h-6'/>
