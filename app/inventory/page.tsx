@@ -4,13 +4,19 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import React from "react";
 
-const page = async () => {
+const page = async ({searchParams}:{searchParams:{q?:string}}) => {
   
+
+  
+  const q=searchParams.q||"";
+
+  
+
   const user = await getCurrentUser();
     const userId = user.id;
   
     const totalProducts = await prisma.product.findMany({
-      where: { userId },
+      where: { userId ,name:{contains:q,mode:"insensitive"} },
     });
   
   
@@ -28,7 +34,17 @@ const page = async () => {
             </div>
           </div>
         </div>
+    
+     <div className="rounded-lg mb-4 p-4 bg-white border border-gray-400">
+        
+        <form className="flex items-center gap-2" action={"/inventory"} method="get">
+         
+         <input type="text" name="q" className="flex-1 py-2 border border-gray-300 rounded-lg px-2 focus:border-transparent" placeholder="Search Item..." />
 
+         <button className="bg-blue-600 py-2.5 px-4 rounded-lg text-white">Search</button>
+         
+        </form>
+     </div>
 
 
         <div className="bg-white border-gray-400 rounded-lg overflow-hidden">
