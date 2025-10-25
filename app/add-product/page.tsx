@@ -1,4 +1,5 @@
 import Sidebar from '@/Components/Sidebar'
+import { addProduct } from '@/lib/Action/deleteForm'
 import React from 'react'
 
 const page = () => {
@@ -18,11 +19,11 @@ const page = () => {
                 <div className='max-w-2xl'>
                     <div className='bg-white rounded-xl'>
                         
-                       <form action="" className='p-5'>
+                       <form action={addProduct} className='p-5'>
 
                          <label htmlFor="Product Name" className='text-lg block mt-4'>Product Name *</label>
 
-                         <input type="text" name='text' required placeholder='Enter The Product Name' className='w-full p-2 border border-blue-200 mt-2 rounded-lg'/>
+                         <input type="text" name='name' required placeholder='Enter The Product Name' className='w-full p-2 border border-blue-200 mt-2 rounded-lg'/>
 
 
                            <div className='grid grid-cols-2 gap-4'>
@@ -45,19 +46,19 @@ const page = () => {
 
                             <label htmlFor="Product Name" className='text-lg block mt-4'>Sku(optional) *</label>
 
-                         <input type="text" name='sku' defaultValue="0"  step="0.1" className='w-full p-2 border border-blue-200 mt-2 rounded-lg'/>
+                         <input type="text" name='sku'  className='w-full p-2 border border-blue-200 mt-2 rounded-lg'/>
                            
                            
                             <label htmlFor="Product Name" className='text-lg block mt-4'>Low Stock At(optional) *</label>
 
-                         <input type="text" name='sku' defaultValue="0"  step="0.1" className='w-full p-2 border border-blue-200 mt-2 rounded-lg'/>
+                         <input type="text" name='lowStockAt' defaultValue="0"    step="0.1" className='w-full p-2 border border-blue-200 mt-2 rounded-lg'/>
 
 
 
 
                          <div className='flex items-center gap-2 mt-4'>
-                            <button className='px-5 py-3 bg-purple-600  rounded-lg text-white'>Add Item</button>
-                            <button className='px-5 py-3 bg-gray-300 rounded-lg'>Cancel</button>
+                            <button className='px-5 py-3 bg-purple-600  rounded-lg text-white cursor-pointer'>Add Item</button>
+                            <button className='px-5 py-3 bg-gray-300 rounded-lg cursor-pointer'>Cancel</button>
 
                          </div>
 
